@@ -1,0 +1,120 @@
+version: '3'
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: docker/Dockerfile
+  working_dir: /opt/phone_business
+  volumes:
+    - .:/opt/phone_business:cached
+    - data-bundle:/usr/local/bundle
+    - data-node-modules:/opt/phone_business/node_modules
+    - ${HOME}/.aws:/root/.aws
+    - ${HOME}/.ssh:/root/.ssh
+    - ./app/assets/fonts:/usr/local/share/fonts/app
+  depends_on:
+    - mysql
+    - redis
+  tty: true
+  stdin_open: true
+  environment:
+    DOMAIN: https://9288-1-54-215-177.ngrok-free.app
+    EDITOR: vim
+    WEBPACKER_DEV_SERVER_HOST: webpack
+    DATABASE_URL: mysql2://root@mysql:3306
+    ACCESS_TOKEN: dummy_key
+    MAILER_HOST: CONTACT_ADMINISTRATOR
+    MAILER_SENDER: nguyenviethung98.bk@gmail.com
+    GMAIL_USER: nguyenviethung98.bk@gmail.com
+    GMAIL_PASSWORD: wysxduvvkovkqjvr
+
+    S3_BUCKET: CONTACT_ADMINISTRATOR
+    S3_LINE_BUCKET: CONTACT_ADMINISTRATOR
+    S3_LINE_SHARE_URL: CONTACT_ADMINISTRATOR
+    COGNITO_AUTH_URL: 
+
+    INTER_FAX_ID: example
+    INTER_FAX_PASSWORD: example
+    REDIS_URL: redis://redis:6379/0
+    MAILER_ERROR_FAX: CONTACT_ADMINISTRATOR
+    TITLE_MAILER_ERROR: phone_business
+    MAIL_TO_BESPO: 
+    MAIL_TO_CLOCO: 
+    BOUNCE_MAIL_API_KEY: test
+    RAKURAKU_BASE_URL: CONTACT_ADMINISTRATOR
+    RAKURAKU_ACCESS_TOKEN: CONTACT_ADMINISTRATOR
+    GMAIL_UPLOAD_RAKURAKU: CONTACT_ADMINISTRATOR
+    SIDEKIQ_USERNAME: CONTACT_ADMINISTRATOR
+    SIDEKIQ_PASSWORD: CONTACT_ADMINISTRATOR
+
+    INFORM_FAX_PROCESSED_TO: CONTACT_ADMINISTRATOR
+    SLACK_BOT_APP_TOKEN: CONTACT_ADMINISTRATOR
+    CRON_NOTI_SLACK_CHANNEL: CONTACT_ADMINISTRATOR
+
+    SF_HOST: CONTACT_ADMINISTRATOR
+    SF_USERNAME: CONTACT_ADMINISTRATOR
+    SF_PASSWORD: CONTACT_ADMINISTRATOR
+    SF_SECURITY_TOKEN: CONTACT_ADMINISTRATOR
+    SF_CLIENT_ID: CONTACT_ADMINISTRATOR
+    SF_CLIENT_SECRET: CONTACT_ADMINISTRATOR
+    SF_OWNER_ACCOUNT: 0125i0000004daZAAQ
+    SF_OWNER_CONTACT_DIRECTOR: 0125i000000501BAAQ
+    SF_OWNER_CONTACT_STAFF: 0125i0000004ffYAAQ
+    SF_PAYMENT_CONTACT: 0125i0000004ffdAAA
+    SF_RESTAURANT_ACCOUNT: 0125i0000004dajAAA
+    SF_RESTAURANT_CONTACT: 0125i0000004ffiAAA
+
+services:
+  web:
+    <<: *app
+    container_name: phone_business_web
+    command: >
+      sh -c "rm -f tmp/pids/server.pid;
+            bundle install --jobs 4 &&
+            bundle exec rails s -b 0.0.0.0"
+    ports:
+      - 3456:3000
+
+  webpack:
+    <<: *app
+    container_name: phone_business_webpack
+    command: >
+      sh -c "bin/webpack-dev-server"
+    ports:
+      - 3035:3035
+    environment:
+      EDITOR: vim
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+
+  mysql:
+    platform: linux/x86_64
+    image: mysql:8.0
+    ports:
+      - 3301:3306
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    volumes:
+      - data-mysql:/var/lib/mysql
+      - ./docker/cnf:/etc/mysql/conf.d
+    environment:
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_0900_ai_ci
+      MYSQL_INNODB_LARGE_PREFIX: 1
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+
+  redis:
+    platform: linux/x86_64
+    image: redis:5.0.6-alpine
+    volumes:
+      - data-redis:/data
+    ports:
+      - 6379:6379
+
+volumes:
+  data-bundle:
+    driver: local
+  data-node-modules:
+    driver: local
+  data-mysql:
+    driver: local
+  data-redis:
+    driver: local

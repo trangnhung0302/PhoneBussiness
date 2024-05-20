@@ -1,0 +1,36 @@
+@media (max-width: 1024px) {
+  .admin-sidebar {
+    left: -288px;
+  }
+
+  .admin-main-content {
+    margin-left: 0;
+  }
+
+  .admin-sidebar-menu {
+    left: 0 !important;
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #ffffffa1;
+    z-index: 9;
+  }
+
+  .admin-form {
+    display: block;
+  }
+  
+  .serach_field_2 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

@@ -1,0 +1,46 @@
+$base: #221811;
+$primary: #373063;
+$white: #ffffff;
+
+body {
+  height: 100vh;
+}
+
+li {
+  list-style: none;
+  margin: 0;
+}
+
+ul {
+  padding: 0 !important;
+}
+
+a {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+p {
+  margin: 0 !important;
+}
+
+button {
+  border: none !important;
+  background: #fff;
+}
+
+.h-60 {
+  height: 60px !important;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.min-w-fit-content {
+  min-width: fit-content;
+}
