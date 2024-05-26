@@ -118,6 +118,27 @@
                 <div>{{ convertNumberFormat(order.total_price) }}đ</div>
               </div>
             </div>
+            <div v-if="order.review && order.review.id">
+              <div class="fs-4 mb-3">Đánh giá khách hàng</div>
+              <div class="mt-3">
+                <label>Chất lượng sản phẩm</label>
+                <div class="d-flex gap-5px mt-1">
+                  <b-icon-star-fill v-for="star in new Array(order.review.ratings).fill(0).map((_, i) => i + 1)" :key="star" variant="danger" scale="1.2" class="cursor-pointer"></b-icon-star-fill>
+                  <b-icon-star v-for="star in new Array(5 - order.review.ratings).fill(order.review.ratings).map((_, i) => i + 1)" :key="star + order.review.ratings" scale="1.2" variant="danger" class="cursor-pointer"></b-icon-star>
+                </div>
+              </div>
+              <div class="mt-3">
+                <label>Mô tả sản phẩm</label>
+                <textarea v-model="order.review.review" class="form-control height-three-line mt-1" disabled></textarea>
+              </div>
+              <div class="mt-3">
+                <label>Phản hồi</label>
+                <textarea v-model="order.review.reply" class="form-control height-three-line mt-1"></textarea>
+              </div>
+              <div class="admin-form-button d-flex justify-content-center mt-2">
+                <button type="button" class="btn btn-primary admin-btn-primary mb-2" @click="updateOrder">Cập nhật phản hồi</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -170,6 +191,9 @@ export default {
       const params = {
         payment_status: this.order.payment_status,
         status: this.order.status,
+        review: {
+          reply: this.order.review ? this.order.review.reply : null
+        }
       }
 
       this.$loading(true);
@@ -188,3 +212,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.height-three-line {
+  height: 90px;
+}
+</style>

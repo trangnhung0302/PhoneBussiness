@@ -12,6 +12,12 @@ module Api
       def update
         @order.assign_attributes(update_params)
         @order.save
+
+        review = @order.review
+        if review.present?
+          review.reply = params[:review][:reply]
+          review.save
+        end
       end
 
       private

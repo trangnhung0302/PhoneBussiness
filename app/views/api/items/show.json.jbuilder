@@ -34,6 +34,7 @@ json.reviews do
   json.array! @reviews do |review|
     json.ratings review.ratings
     json.review review.review
+    json.reply review.reply
     json.created_at review.created_at
     json.customer_name review.order.customer.name
   end

@@ -12,6 +12,7 @@ gem 'sass-rails', '>= 6'
 gem 'jwt_sessions'
 gem 'pagy'
 gem 'enumerize'
+gem 'pusher'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

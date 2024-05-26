@@ -105,7 +105,7 @@ export default {
         datasets: [
           {
             label: this.unit,
-            backgroundColor: '#F87979',
+            backgroundColor: '#0f1a34',
             data: newData
           }
         ]

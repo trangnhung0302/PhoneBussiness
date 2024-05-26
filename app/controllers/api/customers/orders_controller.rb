@@ -1,3 +1,5 @@
+require 'pusher'
+
 module Api
   module Customers
     class OrdersController < Customers::ApplicationController
@@ -46,16 +48,20 @@ module Api
           end
           @order.update(total_price: total_price)
         end
+
+        push_notifycation("#{@current_customer.name} đã tạo mới đơn hàng #{@order.order_number}")
       end
 
       def update
         @order = Order.find(params[:id])
         if @order.payment_status == :unpaid && update_params[:payment_status].present?
           @order.update(payment_status: update_params[:payment_status])
+          push_notifycation("#{@current_customer.name} đã thanh toán đơn hàng #{@order.order_number}")
         end
 
         if update_params[:status].present? && @order.status == :wait_confirm && @order.payment_status == :unpaid
           @order.update(status: update_params[:status], order_cancel_reason_id: params[:order_cancel_reason_id])
+          push_notifycation("#{@current_customer.name} đã hủy đơn hàng #{@order.order_number}")
         end
       end
 

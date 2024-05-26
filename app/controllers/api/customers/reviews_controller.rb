@@ -10,6 +10,8 @@ module Api
         else
           review.update(request_params)
         end
+
+        push_notifycation("#{@current_customer.name} đã đánh giá đơn hàng #{order.order_number}")
       end
 
       private

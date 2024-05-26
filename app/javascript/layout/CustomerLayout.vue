@@ -51,11 +51,16 @@
               <div><span>Giỏ hàng</span></div>
             </div>
           </div>
-          <div v-if="isLogin" class="customer-sidebar-item" @click="logout">
+          <div v-if="isLogin" class="customer-sidebar-item" id="iconLogout">
             <b-icon-person variant="light" scale="1.5"></b-icon-person>
             <div class="number-phone-contact text-hidden-mobile">
-              <div><span>Đăng xuất</span></div>
+              <div><span>Thông tin</span></div>
+              <div><span>cá nhân</span></div>
             </div>
+            <ul class="submenu">
+                <li @click="$router.push('/customer/profile')">Thông tin cá nhân</li>
+                <li @click="logout">Đăng xuất</li>
+            </ul>
           </div>
           <div v-else class="customer-sidebar-item" @click="$router.push('/customer/login')">
             <b-icon-person variant="light" scale="1.5"></b-icon-person>
@@ -216,5 +221,35 @@ export default {
     padding-left: 10px;
     padding-right: 10px;
   }
+}
+
+#iconLogout {
+  position: relative;
+}
+
+.submenu {
+  position: absolute;
+  background-color: #d70020;
+  top: 39px;
+  width: 170px;
+  right: -20px;
+  border-radius: 5px;
+  li {
+    padding: 10px 20px;
+  }
+  li:nth-child(1) {
+    border-bottom: 1px solid white;
+  }
+  li:hover {
+    opacity: 0.7;
+  }
+}
+
+#iconLogout .submenu {
+  display: none;
+}
+
+#iconLogout:hover .submenu {
+  display: block;
 }
 </style>

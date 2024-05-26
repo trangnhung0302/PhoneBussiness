@@ -59,7 +59,7 @@ module Api
         @customer.update(password: params[:password], status: :active)
         password_reset.delete
       end
-
+      
       private
 
       def request_params

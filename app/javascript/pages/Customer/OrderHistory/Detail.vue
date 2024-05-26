@@ -92,6 +92,10 @@
           <label>Mô tả sản phẩm</label>
           <textarea v-model="review.review" class="form-control height-three-line mt-1" :disabled="review.id"></textarea>
         </div>
+        <div v-if="review.reply" class="mt-3">
+          <label>Phản hồi từ cửa hàng</label>
+          <textarea v-model="review.reply" class="form-control height-three-line mt-1" disabled></textarea>
+        </div>
         <div v-if="!review.id" class="mt-3">
           <button class="button-save-buy h-60" @click="createReview">Xác nhận đánh giá</button>
         </div>

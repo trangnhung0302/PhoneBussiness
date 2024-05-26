@@ -30,4 +30,12 @@ json.data do
       json.item_image item.item_images.first && item.item_images.first.image_url
     end
   end
+  
+  review = @order.review
+  json.review do
+    json.id review&.id
+    json.ratings review&.ratings
+    json.review review&.review
+    json.reply review&.reply
+  end
 end

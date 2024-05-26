@@ -12,39 +12,48 @@
         <div class="white_card_body">
           <div class="mb-4">
             <label for="date" class="form_label calendar-title">Thời gian hiển thị</label>
-            <div class="form_input">
-              <DateTimePicker v-if="typeSearchTime == searchTime.month" v-model="month" format="MM/YYYY"
-                              :editable="false" :clearable="false"
-                              class="input_wrapper calender full_width" input-class="calendar__input calendar-text"
-                              type="month"
-                              :disabled-date="(date) => date > (new Date().setHours(0, 0, 0, 0))"
-                              @input="onChangeMonth"
-              >
-                <span slot="icon-calendar">
-                  <b-icon-calendar />
-                </span>
-              </DateTimePicker>
-              <DateTimePicker v-if="typeSearchTime == searchTime.year" v-model="year" format="YYYY"
-                              :editable="false" :clearable="false"
-                              class="input_wrapper calender full_width" input-class="calendar__input calendar-text"
-                              type="year"
-                              :disabled-date="(date) => date > (new Date().setHours(0, 0, 0, 0))"
-                              @input="onChangeMonth"
-              >
-                <span slot="icon-calendar">
-                  <b-icon-calendar />
-                </span>
-              </DateTimePicker>
-              <DateTimePicker v-if="typeSearchTime == searchTime.range" v-model="rangeDate" format="DD/MM/YYYY"
-                          :editable="false" :clearable="false"
-                          class="input_wrapper calender full_width" input-class="calendar__input calendar-text"
-                          type="date"
-                          range
-                          :disabled-date="(date) => date > (new Date().setHours(0, 0, 0, 0))"
-                          @input="onChangeRange"
-              >
-                <span slot="icon-calendar" />
-              </DateTimePicker>
+            <div class="d-flex" style="justify-content: space-between;">
+              <div class="form_input">
+                <DateTimePicker v-if="typeSearchTime == searchTime.month" v-model="month" format="MM/YYYY"
+                                :editable="false" :clearable="false"
+                                class="input_wrapper calender full_width" input-class="calendar__input calendar-text"
+                                type="month"
+                                :disabled-date="(date) => date > (new Date().setHours(0, 0, 0, 0))"
+                                @input="onChangeMonth"
+                >
+                  <span slot="icon-calendar">
+                    <b-icon-calendar />
+                  </span>
+                </DateTimePicker>
+                <DateTimePicker v-if="typeSearchTime == searchTime.year" v-model="year" format="YYYY"
+                                :editable="false" :clearable="false"
+                                class="input_wrapper calender full_width" input-class="calendar__input calendar-text"
+                                type="year"
+                                :disabled-date="(date) => date > (new Date().setHours(0, 0, 0, 0))"
+                                @input="onChangeMonth"
+                >
+                  <span slot="icon-calendar">
+                    <b-icon-calendar />
+                  </span>
+                </DateTimePicker>
+                <DateTimePicker v-if="typeSearchTime == searchTime.range" v-model="rangeDate" format="DD/MM/YYYY"
+                            :editable="false" :clearable="false"
+                            class="input_wrapper calender full_width" input-class="calendar__input calendar-text"
+                            type="date"
+                            range
+                            :disabled-date="(date) => date > (new Date().setHours(0, 0, 0, 0))"
+                            @input="onChangeRange"
+                >
+                  <span slot="icon-calendar" />
+                </DateTimePicker>
+              </div>
+              <div>
+                <button class="btn btn-primary admin-btn-primary mb-2">
+                  <a href="https://app.powerbi.com/reportEmbed?reportId=9a94ebdf-5eb2-439a-8abc-19fdfb135134&autoAuth=true&ctid=e7572e92-7aee-4713-a3c4-ba64888ad45f" target="_blank" style="color: white;">
+                    Thống kê chi tiết
+                  </a>
+                </button>
+              </div>
             </div>
           </div>
           <div class="menu-search">

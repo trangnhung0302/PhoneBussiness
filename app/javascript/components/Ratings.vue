@@ -7,6 +7,10 @@
     </div>
     <div class="mt-3">
       {{ review.review }}
+      <div v-if="review.reply" style="background-color: #c3c3c3; padding: 10px 20px; margin-left: 40px; border-radius: 10px;">
+        <div style="font-weight: 500;">Phản hồi của cửa hàng</div>
+        <div>{{ review.reply }}</div>
+      </div>
     </div>
   </div>
 </template>

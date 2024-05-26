@@ -56,5 +56,6 @@ json.data do
     json.id review&.id
     json.ratings review&.ratings
     json.review review&.review
+    json.reply review&.reply
   end
 end
